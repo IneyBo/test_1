@@ -1,16 +1,12 @@
 #include <iostream>
 #include <fstream>
 
-int* createArr(std::ifstream& fin) // Создание массива из считанных данных файла
+int* createArr(std::ifstream& fin, int* size) // Создание массива из считанных данных файла
 {
-    int size = 0;
+    fin >> *size; // Вынес размер массива из самого массива в отдельную переменную
+    int* arr = new int[*size];
 
-    fin >> size;
-    size++;
-    int* arr = new int[size];
-    arr[0] = size; // Решил хранить размер массива в первом его элементе. Не знаю корректно ли, но хотелось передать в функцию создание массива и не заводить лишних переменных в мэйне. Например на тот случай, если массивов в исходном файле может быть не только два, а любое количество.
-
-    for (int i = 1; i < size; i++)
+    for (int i = 0; i < *size; i++)
     {
         fin >> arr[i];
     }
@@ -29,33 +25,38 @@ int main()
     }
     else
     {
-        int* arr1 = createArr(fin);
-        int* arr2 = createArr(fin);
+        int size = 0, sizeArr1 = 0, sizeArr2 = 0;
+        int* arr1 = createArr(fin, &size);
+        sizeArr1 = size;
+        int* arr2 = createArr(fin, &size);
+        sizeArr2 = size;
 
         fin.close();
 
         std::ofstream fout(fileOut);
 
         // Вывод массива, который шел вторым в исходном файле
-        fout << arr2[0] - 1 << std::endl; // Вывод количества элементов массива
-        fout << arr2[arr2[0] - 1]; // Вывод последнего элемента массива
-        for (int i = 1; i < arr2[0] - 1; i++) // Вывод остальных элементов
+        fout << sizeArr2 << std::endl; // Вывод количества элементов массива
+        fout << arr2[sizeArr2 - 1]; // Вывод последнего элемента массива
+        for (int i = 0; i < sizeArr2 - 1; i++) // Вывод остальных элементов
         {
             fout << " " << arr2[i];
         }
         fout << std::endl;
 
+        delete[] arr2; // Сделал очищение памяти для двух массивов отдельно. Видимо тут и была утечка, когда два массива через запятую шли.
+
         // Вывод массива, который шел первым в исходном файле
-        fout << arr1[0] - 1 << std::endl; // Вывод количества элементов массива
-        for (int i = 2; i < arr1[0]; i++) // Вывод элементов массива со второго по последний
+        fout << sizeArr1 << std::endl; // Вывод количества элементов массива
+        for (int i = 1; i < sizeArr1; i++) // Вывод элементов массива со второго по последний
         {
             fout << arr1[i] << " ";
         }
-        fout << arr1[1]; // Вывод первого элемента массива
+        fout << arr1[0]; // Вывод первого элемента массива
+
+        delete[] arr1;
 
         fout.close();
-
-        delete[] arr1, arr2;
     }
 
     return 0;
