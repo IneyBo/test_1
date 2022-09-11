@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
 
-int* createArr(std::ifstream& fin, int* size) // Создание массива из считанных данных файла
+int* createArr(std::ifstream& fin, int* size) // Create array from file
 {
-    fin >> *size; // Вынес размер массива из самого массива в отдельную переменную
+    fin >> *size; // Removed array size from array to separate variable
     int* arr = new int[*size];
 
     for (int i = 0; i < *size; i++)
@@ -35,24 +35,24 @@ int main()
 
         std::ofstream fout(fileOut);
 
-        // Вывод массива, который шел вторым в исходном файле
-        fout << sizeArr2 << std::endl; // Вывод количества элементов массива
-        fout << arr2[sizeArr2 - 1]; // Вывод последнего элемента массива
-        for (int i = 0; i < sizeArr2 - 1; i++) // Вывод остальных элементов
+        // Second array output
+        fout << sizeArr2 << std::endl; // Number of array elements output
+        fout << arr2[sizeArr2 - 1]; // Last element of array output
+        for (int i = 0; i < sizeArr2 - 1; i++) // Other elements output
         {
             fout << " " << arr2[i];
         }
         fout << std::endl;
 
-        delete[] arr2; // Сделал очищение памяти для двух массивов отдельно. Видимо тут и была утечка, когда два массива через запятую шли.
+        delete[] arr2; // Cleaned up memory for two arrays separately
 
-        // Вывод массива, который шел первым в исходном файле
-        fout << sizeArr1 << std::endl; // Вывод количества элементов массива
-        for (int i = 1; i < sizeArr1; i++) // Вывод элементов массива со второго по последний
+        // First array output
+        fout << sizeArr1 << std::endl; // Number of array elements output
+        for (int i = 1; i < sizeArr1; i++) // Output of array elements from the second to the last
         {
             fout << arr1[i] << " ";
         }
-        fout << arr1[0]; // Вывод первого элемента массива
+        fout << arr1[0]; // First element output
 
         delete[] arr1;
 
