@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-int* createArr(std::ifstream& fin, int* size) // Create array from file
+int* createArr(std::ifstream& fin, int* size) // Создание массива из данных файла
 {
     fin >> *size; // Removed array size from array to separate variable
     int* arr = new int[*size];
