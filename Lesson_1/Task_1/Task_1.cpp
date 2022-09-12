@@ -1,7 +1,7 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <fstream>
 
-int* createArr(std::ifstream& fin, int* size) // Ñîçäàíèå ìàññèâà èç äàííûõ ôàéëà
+int* createArr(std::ifstream& fin, int* size) // Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð¸Ð· Ð´Ð°Ð½Ð½Ñ‹Ñ… Ñ„Ð°Ð¹Ð»Ð°
 {
     fin >> *size; // Removed array size from array to separate variable
     int* arr = new int[*size];
@@ -23,7 +23,7 @@ int main()
 
     if (!fin.is_open())
     {
-        std::cout << "Íå óäàëîñü îòêðûòü ôàéë" << std::endl;
+        std::cout << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»" << std::endl;
     }
     else
     {
