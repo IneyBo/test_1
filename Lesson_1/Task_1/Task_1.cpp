@@ -16,6 +16,8 @@ int* createArr(std::ifstream& fin, int* size) // Create array from file
 
 int main()
 {
+    setlocale(LC_ALL, "Russian");
+
     std::string fileIn = "in.txt", fileOut = "out.txt";
     std::ifstream fin(fileIn);
 
